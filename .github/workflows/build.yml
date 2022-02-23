@@ -15,13 +15,14 @@ jobs:
                 distribution: 'adopt' 
               
             - name: Build React App 
-              run: |
-                env: 
-                    CI: false  
+              run: |  
                 cd frontend 
                 set PUBLIC_FOLDER=/static 
                 npm i 
-                npm run build 
+                npm run build
+              env: 
+                CI: false
+            
             - name: Build Jar 
               run: | 
                 cd frontend/build 
