@@ -26,11 +26,13 @@ jobs:
             - name: Build Jar 
               run: | 
                 cd frontend/build 
-                ls -p | grep -v / | grep -v ^index.html | xargs -I{} 
-                mv {} static/ cd ../../ mv frontend/build/static/* frontend/build 
+                ls -p | grep -v / | grep -v ^index.html | xargs -I{} mv {} static/ 
+                cd ../../ 
+                mv frontend/build/static/* frontend/build 
                 mkdir server/http-api/src/main/resources/static 
                 mv frontend/build/* server/http-api/src/main/resources/static 
                 mvn package 
+                
             - name: Set Release version env variable 
               run: | 
                 echo "RELEASE_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" "pom.xml")" >> $GITHUB_ENV 
