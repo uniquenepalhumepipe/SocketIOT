@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { FormEvent, useEffect, useState } from "react";
 import Alert from "../../components/Alert";
 import ErrorAlert from "../../components/ErrorAlert";
-import { BluePrintInterface, BluePrintRes } from "../../interfaces/IBluePrint";
-import { DeviceInterface, DeviceRes } from "../../interfaces/IDevice";
+import { BluePrintInterface } from "../../interfaces/IBluePrint";
+import { DeviceInterface } from "../../interfaces/IDevice";
 
 interface FirmwareInfo {
   build?: string;
@@ -24,8 +24,8 @@ const OTA = () => {
   const [blueprintID, setBluePrintID] = useState<string>("");
 
   useEffect(() => {
-    axios.post<BluePrintRes>("/api/blueprint/all").then((res) => {
-      setBluePrints(res.data.bluePrints);
+    axios.post<BluePrintInterface[]>("/api/blueprint/all").then((res) => {
+      setBluePrints(res.data);
     });
   }, []);
 
@@ -45,10 +45,11 @@ const OTA = () => {
   };
 
   const onBluePrintSelect = (blueprint_id: string) => {
-    axios.post<DeviceRes>("/api/device/all", { blueprint_id }).then((res) => {
-      setBluePrintID(blueprint_id);
-      setDevices(res.data.devices);
-    });
+    axios
+      .post<DeviceInterface[]>("/api/device/all", { blueprint_id })
+      .then((res) => {
+        setDevices(res.data);
+      });
   };
 
   const onSelectDevice = (checked: boolean, token: string) => {
