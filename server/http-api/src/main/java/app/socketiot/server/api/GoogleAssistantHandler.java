@@ -28,12 +28,14 @@ public class GoogleAssistantHandler extends BaseHttpHandler {
     @POST
     public HttpRes token(HttpReq req) {
         GoogleAssistantTokenReq tokenreq = req.getContentAs(GoogleAssistantTokenReq.class);
+        
+        log.info("Got Token {}", req.getContent());
+        
         if (tokenreq == null) {
             return HttpRes.badRequest("Invalid request");
         }
 
         log.info("Google Assistant Token: {}", tokenreq.code);
-        log.info("Got Token {}", req.getContent());
 
         String token;
         if (tokenreq.grant_type.equals("authorization_code")) {
