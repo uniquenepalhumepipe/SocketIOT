@@ -39,6 +39,7 @@ public class JsonParser {
         try {
             return limitedObjectWriter.writeValueAsString(obj);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -47,6 +48,7 @@ public class JsonParser {
         try {
             return limitedObjectReader.readValue(json, clazz);
         } catch (Exception e) {  
+            e.printStackTrace();
             return null;
         }
     }
