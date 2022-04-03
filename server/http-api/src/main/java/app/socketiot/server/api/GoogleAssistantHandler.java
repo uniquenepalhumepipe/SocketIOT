@@ -31,6 +31,9 @@ public class GoogleAssistantHandler extends BaseHttpHandler {
         
         log.info("Got Token {}", req.getContent());
         
+        log.info("GrantType is {}", req.getQueryParam("grant_type"));
+       
+        
         if (tokenreq == null) {
             return HttpRes.badRequest("Invalid request");
         }
